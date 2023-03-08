@@ -1,28 +1,28 @@
-import { BodyText, HeaderText } from 'components/Text'
-import { Suspense } from 'preact/compat'
-import UserCount from 'components/UserCount'
-import classnames, {
-  alignItems,
-  display,
-  flexDirection,
-  justifyContent,
-  space,
-} from 'classnames/tailwind'
+import { MultiSelect } from '@mantine/core'
+import { useState } from 'preact/compat'
 
-const container = classnames(
-  display('flex'),
-  flexDirection('flex-col'),
-  justifyContent('justify-center'),
-  alignItems('items-center'),
-  space('space-y-2')
-)
+const data = [
+  { value: 'react', label: 'React' },
+  { value: 'ng', label: 'Angular' },
+  { value: 'svelte', label: 'Svelte' },
+  { value: 'vue', label: 'Vue' },
+  { value: 'riot', label: 'Riot' },
+  { value: 'next', label: 'Next.js' },
+  { value: 'blitz', label: 'Blitz.js' },
+]
+
 export default function () {
+  const [selected, setSelected] = useState<string[]>([])
+
   return (
-    <div className={container}>
-      <HeaderText>Frontend Template</HeaderText>
-      <Suspense fallback={<BodyText>Loading...</BodyText>}>
-        <UserCount />
-      </Suspense>
-    </div>
+    <MultiSelect
+      data={data}
+      value={selected}
+      onChange={setSelected}
+      searchable
+      clearable
+      label="Your favorite frameworks/libraries"
+      placeholder="Pick all that you like"
+    />
   )
 }
